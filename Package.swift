@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Dux",
     platforms: [
-        .iOS(.v13_4),
+        .iOS(.v13),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
