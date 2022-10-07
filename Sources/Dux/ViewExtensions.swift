@@ -42,19 +42,19 @@ extension View {
     }
     
     public func stopDux(_ dux: Dux, onLink navigationLink: Bool) -> some View {
-        onChange(of: navigationLink, perform: { shown in
+        valueChanged(value: navigationLink) { shown in
             if shown {
                 dux.stop()
             }
-        })
+        }
     }
     
     public func stopDux<V: Hashable>(_ dux: Dux, onTag navigationTag: V, selection: V) -> some View {
-        onChange(of: selection, perform: { value in
+        valueChanged(value: selection) { value in
             if navigationTag == value {
                 dux.stop()
             }
-        })
+        }
     }
     
     @ViewBuilder func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
