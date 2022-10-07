@@ -196,7 +196,7 @@ public struct GuidableView<Content: View, Tags: DuxTags>: View {
             .onDisappear {
                 dux.stop()
             }
-            .onChange(of: isActive) { active in
+            .valueChanged(value: isActive) { active in
                 if active {
                     dux.start(tags: Tags.self, delegate: delegate)
                 }
