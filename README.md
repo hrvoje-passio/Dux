@@ -1,4 +1,4 @@
-# Dux
+# Dux2
 
 [![Build Status](https://github.com/jakeheis/Dux/workflows/Build/badge.svg)](https://github.com/jakeheis/SwiftCLI/actions)
 
