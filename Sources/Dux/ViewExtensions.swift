@@ -33,8 +33,7 @@ extension View {
         case .bottom: alignment = .bottom
         }
         
-        let overlayView = Circle()
-            .strokeBorder(.red, lineWidth: 4)
+        let overlayView = Color.clear
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .frame(width: width, height: height)
             .duxTag(tag)
