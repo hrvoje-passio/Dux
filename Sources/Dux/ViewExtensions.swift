@@ -88,5 +88,5 @@ extension UIColor {
 }
 
 extension Color {
-    static let cutoutBorder = Color(UIColor(hex: "#00A657"))
+    static let cutoutBorder = Color(UIColor(hex: "#32FD9C"))
 }
