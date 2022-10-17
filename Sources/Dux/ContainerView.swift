@@ -102,27 +102,18 @@ private struct ActiveDuxOverlay: View {
     
     @ViewBuilder
     private func cutoutTint(for cutoutFrame: CGRect, screenSize: CGSize) -> some View {
-        ZStack(alignment: .topLeading) {
-            if cutoutFrame.minX > 0 {
-                dux.delegate.overlay(dux: dux)
-                    .frame(width: cutoutFrame.minX, height: screenSize.height)
-            }
-            if cutoutFrame.maxX < screenSize.width {
-                dux.delegate.overlay(dux: dux)
-                    .frame(width: screenSize.width - cutoutFrame.maxX, height: screenSize.height)
-                    .offset(x: cutoutFrame.maxX)
-            }
-            if cutoutFrame.minY > 0 {
-                dux.delegate.overlay(dux: dux)
-                    .frame(width: cutoutFrame.width, height: cutoutFrame.minY)
-                    .offset(x: cutoutFrame.minX)
-            }
-            if cutoutFrame.maxY < screenSize.height {
-                dux.delegate.overlay(dux: dux)
-                    .frame(width: cutoutFrame.width, height: screenSize.height - cutoutFrame.maxY)
-                    .offset(x: cutoutFrame.minX, y: cutoutFrame.maxY)
-            }
+        ZStack {
+            Rectangle()
+                .fill(Color.gray)
+                .frame(width: screenSize.width, height: screenSize.height)
+
+            Circle()
+                .fill(Color.black)
+                .frame(width: cutoutFrame.width, height: cutoutFrame.height)
+                .position(x: cutoutFrame.midX, y: cutoutFrame.midY)
         }
+        .compositingGroup()
+        .luminanceToAlpha()
     }
     
     @ViewBuilder
@@ -130,14 +121,16 @@ private struct ActiveDuxOverlay: View {
         switch mode {
         case .passthrough: EmptyView()
         case .advance:
-            Color.black.opacity(0.05)
+            Circle()
+                .strokeBorder(.red, lineWidth: 4)
                 .frame(width: cutout.width, height: cutout.height)
                 .offset(x: cutout.minX, y: cutout.minY)
                 .onTapGesture {
                     dux.advance()
                 }
         case .custom(let action):
-            Color.black.opacity(0.05)
+            Circle()
+                .strokeBorder(.red, lineWidth: 4)
                 .frame(width: cutout.width, height: cutout.height)
                 .offset(x: cutout.minX, y: cutout.minY)
                 .onTapGesture {
