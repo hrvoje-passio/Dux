@@ -69,3 +69,21 @@ extension View {
     }
 }
 
+extension UIColor {
+    convenience init(hex: String) {
+        let stringRepresentation = hex.replacingOccurrences(of: "#", with: "")
+
+        guard let hexInt = Int(stringRepresentation, radix: 16) else {
+            self.init(white: 0, alpha: 0)
+
+            return
+        }
+
+        let red = CGFloat((hexInt >> 16) & 0xFF) / 255.0
+        let green = CGFloat((hexInt >> 8) & 0xFF) / 255.0
+        let blue = CGFloat(hexInt & 0xFF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: 1)
+    }
+}
+
