@@ -122,7 +122,7 @@ private struct ActiveDuxOverlay: View {
         case .passthrough: EmptyView()
         case .advance:
             Circle()
-                .strokeBorder(.red, lineWidth: 4)
+                .strokeBorder(Color.cutoutBorder, lineWidth: 4)
                 .frame(width: cutout.width, height: cutout.height)
                 .offset(x: cutout.minX, y: cutout.minY)
                 .onTapGesture {
@@ -130,7 +130,7 @@ private struct ActiveDuxOverlay: View {
                 }
         case .custom(let action):
             Circle()
-                .strokeBorder(.red, lineWidth: 4)
+                .strokeBorder(Color.cutoutBorder, lineWidth: 4)
                 .frame(width: cutout.width, height: cutout.height)
                 .offset(x: cutout.minX, y: cutout.minY)
                 .onTapGesture {
