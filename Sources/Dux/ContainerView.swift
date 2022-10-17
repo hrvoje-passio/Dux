@@ -82,6 +82,7 @@ private struct ActiveDuxOverlay: View {
     let tagInfo: DuxTagInfo
     let dux: Dux
     let popoverSize: CGSize
+    let cutoutOffset: CGFloat = 20
     
     var body: some View {
         GeometryReader { proxy in
@@ -109,7 +110,8 @@ private struct ActiveDuxOverlay: View {
 
             Circle()
                 .fill(Color.black)
-                .frame(width: cutoutFrame.width, height: cutoutFrame.height)
+                .frame(width: cutoutFrame.width + cutoutOffset,
+                       height: cutoutFrame.height + cutoutOffset)
                 .position(x: cutoutFrame.midX, y: cutoutFrame.midY)
         }
         .compositingGroup()
@@ -118,21 +120,28 @@ private struct ActiveDuxOverlay: View {
     
     @ViewBuilder
     private func touchModeView(for cutout: CGRect, mode: CutoutTouchMode) -> some View {
+        let cutoutOffset: CGFloat = 20
+        let strokeWidth: CGFloat = 8
+        
         switch mode {
         case .passthrough: EmptyView()
         case .advance:
             Circle()
-                .strokeBorder(Color.cutoutBorder, lineWidth: 4)
-                .frame(width: cutout.width, height: cutout.height)
-                .offset(x: cutout.minX, y: cutout.minY)
+                .strokeBorder(Color.cutoutBorder, lineWidth: strokeWidth)
+                .frame(width: cutout.width + cutoutOffset,
+                       height: cutout.height + cutoutOffset)
+                .offset(x: cutout.minX - cutoutOffset / 2,
+                        y: cutout.minY - cutoutOffset / 2)
                 .onTapGesture {
                     dux.advance()
                 }
         case .custom(let action):
             Circle()
-                .strokeBorder(Color.cutoutBorder, lineWidth: 4)
-                .frame(width: cutout.width, height: cutout.height)
-                .offset(x: cutout.minX, y: cutout.minY)
+                .strokeBorder(Color.cutoutBorder, lineWidth: strokeWidth)
+                .frame(width: cutout.width + cutoutOffset,
+                       height: cutout.height + cutoutOffset)
+                .offset(x: cutout.minX - cutoutOffset / 2,
+                        y: cutout.minY - cutoutOffset / 2)
                 .onTapGesture {
                     action()
                 }
